@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Arceus1ooo/StevensMarketplace#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.3",
     "express-handlebars": "^6.0.5",
     "mongodb": "^4.5.0"
