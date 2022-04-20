@@ -2,6 +2,7 @@ const mongoCollections = require('../config/mongoCollections');
 const listingsCollection = mongoCollections.listings;
 const validation = require('../validations');
 const usersData = require('./users');
+const { ObjectId } = require('mongodb');
 
 module.exports = {
     async createListing(category, postDate, askPrice, desc, cond, status, sellerID) {
@@ -32,7 +33,29 @@ module.exports = {
         };
 
         const listings = await listingsCollection();
-        await listings.insertOne(listing);
+        const insertInfo = await listings.insertOne(listing);
+        if (!insertInfo.acknowledged || !insertInfo.insertedId) throw 'could not add listing';
+        const newID = insertInfo.insertedId.toString();
+
+        return await this.getListingByID(newID);
+    },
+
+    async getListingByID(id) {
+        if (!id) throw 'ID must be supplied';
+        if (!ObjectId.isValid(id)) throw 'invalid ID';
+        const listings = await listingsCollection();
+        const listing = await listings.findOne({ _id: ObjectId(id) });
+        if (!listing) throw 'could not find listing';
+        listing._id = listing._id.toString();
+        return listing;
+    },
+
+    async deleteListingByID(id) {
+        if (!id) throw 'ID must be supplied';
+        if (!ObjectId.isValid(id)) throw 'invalid ID';
+        const listings = await listingsCollection();
+        const deletedInfo = await listings.deleteOne({ _id: ObjectId(id) });
+        if (deletedInfo.deletedCount === 0) throw 'could not delete listing';
         return true;
     }
 }

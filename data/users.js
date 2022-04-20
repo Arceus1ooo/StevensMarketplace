@@ -27,7 +27,7 @@ module.exports = {
             overallRating: -1 // -1 means no rating yet
         }
         await users.insertOne(newUser);
-        return;
+        return await this.getUserByEmail(email);
     },
 
     async checkUser(email, password) {
@@ -64,6 +64,16 @@ module.exports = {
         const users = await usersCollection();
         const user = await users.findOne({ email: email });
         if (!user) throw 'user not found';
+        user._id = user._id.toString();
         return user;
+    },
+
+    async deleteUserByEmail(email) {
+        if (!email) throw 'email must be supplied';
+        email = validation.VerifyEmail(email).toLowerCase();
+        const users = await usersCollection();
+        const deletedInfo = await users.deleteOne({ email: email });
+        if (deletedInfo.deletedCount === 0) throw 'could not delete user';
+        return true;
     }
 }
