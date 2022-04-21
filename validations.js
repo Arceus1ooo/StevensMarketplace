@@ -8,6 +8,7 @@ const conditions = ['New', 'Good', 'Fair', 'Poor'];
 
 module.exports = {
     VerifyBool(bool) {
+        if (!bool) throw 'a value must be supplied';
         if (typeof bool !== 'boolean') throw 'value must be true or false';
     },
 
@@ -22,6 +23,7 @@ module.exports = {
     },
 
     VerifyInt(input) {
+        if (!input) throw 'a value must be supplied';
         input = String(input);
         for (let char of input) {
             if (char < '0' || char > '9') throw 'this number can only contain digits';
@@ -33,7 +35,13 @@ module.exports = {
         return num;
     },
 
-    VerifyPrice(price) { //verifies float up to two decimals
+    VerifyArray(arr) {
+        if (!arr) throw 'a value must be supplied';
+        if (typeof arr !== 'object' || !Array.isArray(arr)) throw 'input must be an array';
+    },
+
+    VerifyFloat(price) { //verifies float up to two decimals
+        if (!price) throw 'price must be supplied';
         price = this.VerifyString(price, 'price');
         let num = parseInt(price, 10);
         if (Number.isNaN(num)) throw 'value must be a number';
@@ -93,6 +101,7 @@ module.exports = {
     },
 
     VerifyCategory(category) {
+        if (!category) throw 'a category must be supplied';
         category = this.VerifyString(category, 'category');
         for (let c of categories) {
             if (category.toLowerCase() === c.toLowerCase()) {
@@ -102,6 +111,7 @@ module.exports = {
         throw 'invalid category';
     },
     VerifyCondition(cond) {
+        if (!cond) 'a condition must be supplied';
         cond = this.VerifyString(cond, 'condition');
         for (let c of conditions) {
             if (cond.toLowerCase() === c.toLowerCase()) {
@@ -125,6 +135,7 @@ module.exports = {
     },
 
     VerifyDate(date) {
+        if (!date) throw 'date must be supplied';
         date = this.VerifyString(date, 'date');
         let monthDayYear = date.split('/');
         if (monthDayYear.length !== 3) throw 'date must be in MM/DD/YYYY format';
@@ -136,5 +147,18 @@ module.exports = {
         if (month < 10) month = `0${month}`;
         if (day < 10) day = `0${day}`;
         return `${month}/${day}/${year}`;
+    },
+
+    VerifyName(name) {
+        if (!name) throw 'a name must be supplied';
+        name = this.VerifyString(name, 'name');
+        for (let i = 0; i < name.length; i++) {
+            const charCode = name.charCodeAt(i);
+            if (!(charCode > 64 && charCode < 91) &&
+                !(charCode > 96 && charCode < 123)) {
+                throw 'names can only contain letters';
+            }
+        }
+        return name;
     }
 }

@@ -3,7 +3,7 @@ const usersCollection = mongoCollections.users;
 const validation = require('../validations');
 const bcrypt = require('bcryptjs');
 const { ObjectId } = require('mongodb');
-const saltRounds = 15;
+const saltRounds = 14;
 
 module.exports = {
     async createUser(email, password) {
@@ -66,6 +66,42 @@ module.exports = {
         if (!user) throw 'user not found';
         user._id = user._id.toString();
         return user;
+    },
+
+    async updateUserByID(id, first, last, email, password, listings, reviews, rating) {
+        if (!id) throw 'ID must be supplied';
+        if (!first) throw 'first name must be supplied';
+        if (!last) throw 'last name must be supplied';
+        if (!email) throw 'email must be supplied';
+        if (!password) throw 'password must be supplied';
+        if (!listings) throw 'user listings must be supplied';
+        if (!reviews) throw 'reviews must be supplied';
+        if (!rating) throw 'overall rating must be supplied';
+
+        if (!ObjectId.isValid(id)) throw 'invalid ID';
+        first = validation.VerifyName(first);
+        last = validation.VerifyName(last);
+        email = validation.VerifyEmail(email);
+        password = validation.VerifyPassword(password);
+        validation.VerifyArray(listings);
+        validation.VerifyArray(reviews);
+        rating = validation.VerifyFloat(rating);
+        const hashedPwd = await bcrypt.hash(password, saltRounds);
+
+        let newUser = {
+            firstName: first,
+            lastName: last,
+            email: email,
+            hashPassword: hashedPwd,
+            userListings: listings,
+            reviews: reviews,
+            overallRating: rating
+        };
+
+        const users = await usersCollection();
+        const updatedInfo = await users.replaceOne({ _id: ObjectId(id) }, newUser);
+        if (updatedInfo.modifiedCount === 0) throw 'Error: could not update listing';
+        return await this.getUserByID(id);
     },
 
     async deleteUserByEmail(email) {
