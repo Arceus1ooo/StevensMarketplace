@@ -1,0 +1,35 @@
+.nav-bar{
+    background-color: #ff3d3d;
+}
+
+
+.center {
+    margin: auto;
+    width: 30%;
+    border: 5px;
+    padding: 5px;
+}
+
+.searchbutton{
+    background-color: #fff7f7;
+    border-radius: 25px;
+    padding: 10px;
+}
+
+.searchbutton-size{
+    width: 200px;
+}
+
+    .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+    }
+    
+    @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+        }
+    }
