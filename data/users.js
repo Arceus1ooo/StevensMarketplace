@@ -24,9 +24,10 @@ module.exports = {
             hashPassword: hashedPwd,
             userListings: [],
             reviews: [],
-            overallRating: -1 // -1 means no rating yet
+            overallRating: 0
         }
-        await users.insertOne(newUser);
+        const insertInfo = await users.insertOne(newUser);
+        if (!insertInfo.acknowledged || !insertInfo.insertedId) throw 'could not add user';
         return await this.getUserByEmail(email);
     },
 
@@ -85,7 +86,7 @@ module.exports = {
         password = validation.VerifyPassword(password);
         validation.VerifyArray(listings);
         validation.VerifyArray(reviews);
-        rating = validation.VerifyFloat(rating);
+        rating = validation.VerifyRating(String(rating));
         const hashedPwd = await bcrypt.hash(password, saltRounds);
 
         let newUser = {

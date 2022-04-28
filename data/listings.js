@@ -15,10 +15,11 @@ async function VerifyListingObject(category, postDate, askPrice, desc, cond, sta
 
     category = validation.VerifyCategory(category);
     postDate = validation.VerifyDate(postDate);
-    askPrice = validation.VerifyFloat(askPrice);
+    askPrice = validation.VerifyFloat(String(askPrice));
     desc = validation.VerifyString(desc);
     cond = validation.VerifyCondition(cond);
     validation.VerifyBool(status);
+    if (!ObjectId.isValid(sellerID)) throw 'invalid seller ID';
     const seller = await usersData.getUserByID(sellerID);
 
     let listing = {
@@ -37,13 +38,12 @@ async function VerifyListingObject(category, postDate, askPrice, desc, cond, sta
 module.exports = {
     async createListing(category, postDate, askPrice, desc, cond, status, sellerID) {
         let listing = await VerifyListingObject(category, postDate, askPrice, desc, cond, status, sellerID);
-
         const listings = await listingsCollection();
         const insertInfo = await listings.insertOne(listing);
         if (!insertInfo.acknowledged || !insertInfo.insertedId) throw 'could not add listing';
         const newID = insertInfo.insertedId.toString();
-
-        return await this.getListingByID(newID);
+        const newListing = await this.getListingByID(newID);
+        return newListing;
     },
 
     async getListingByID(id) {
@@ -68,6 +68,7 @@ module.exports = {
     },
 
     async deleteListingByID(id) {
+        // do we need this?
         if (!id) throw 'ID must be supplied';
         if (!ObjectId.isValid(id)) throw 'invalid ID';
         const listings = await listingsCollection();
