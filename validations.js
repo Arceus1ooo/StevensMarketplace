@@ -40,13 +40,19 @@ module.exports = {
         if (typeof arr !== 'object' || !Array.isArray(arr)) throw 'input must be an array';
     },
 
-    VerifyFloat(price) { //verifies float up to two decimals
-        if (!price) throw 'price must be supplied';
-        price = this.VerifyString(price, 'price');
-        let num = parseInt(price, 10);
+    VerifyFloat(float) { //verifies float up to two decimals
+        if (!float) throw 'a number in string format must be supplied';
+        float = this.VerifyString(float, 'price');
+        let num = parseFloat(float);
         if (Number.isNaN(num)) throw 'value must be a number';
         if (num < 0) throw 'number cannot be negative';
-        return num.toFixed(2);
+        return Number(num.toFixed(2));
+    },
+
+    VerifyRating(rating) { //just like verify float must limits range
+        rating = this.VerifyFloat(rating);
+        if (rating > 5) throw 'rating cannot be greater than 5';
+        return rating;
     },
 
     VerifyEmail(email) {
