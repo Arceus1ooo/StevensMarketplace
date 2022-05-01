@@ -1,15 +1,18 @@
 const usersData = require('./users');
 const listingsData = require('./listings');
 const reviewsData = require('./reviews');
+const conversationsData = require('./conversations');
 
 async function test() {
     try {
-        await usersData.createUser('test@test.com', 'password');
+        let test = await usersData.createUser('test@test.com', 'password');
+        console.log(test);
     } catch (e) {
         console.log(e);
     }
     try {
-        await usersData.createUser('blah@blah.com', 'password1');
+        let test = await usersData.createUser('blah@blah.com', 'password1');
+        console.log(test);
     } catch (e) {
         console.log(e);
     }
@@ -28,6 +31,15 @@ async function test() {
     await reviewsData.updateReview(user2._id, listing._id, 'new test', 3.1);
     let listing2 = await listingsData.createListing('furniture', '3/3/2003', '23.21', 'test', 'good', true, user1._id);
     await listingsData.deleteListingByID(listing2._id);
+
+    try {
+        let conversation = await conversationsData.createConversation(user1._id, user2._id);
+    } catch (e) {
+        console.log(e);
+    }
+    let message = await conversationsData.createMessage(user1._id, 'hello');
+    //console.log(message);
+    await conversationsData.addMessage(message, user1._id, user2._id);
     console.log('done');
 }
 test();

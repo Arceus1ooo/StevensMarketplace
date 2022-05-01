@@ -15,5 +15,6 @@ const getCollectionFn = (collection) => {
 
 module.exports = {
     users: getCollectionFn('users'),
-    listings: getCollectionFn('listings')
+    listings: getCollectionFn('listings'),
+    conversations: getCollectionFn('conversations')
 };

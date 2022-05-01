@@ -23,7 +23,7 @@ module.exports = {
     },
 
     VerifyInt(input) {
-        if (!input) throw 'a value must be supplied';
+        if (arguments.length !== 1) throw 'only one value must be supplied';
         input = String(input);
         for (let char of input) {
             if (char < '0' || char > '9') throw 'this number can only contain digits';
@@ -31,7 +31,7 @@ module.exports = {
         let num = Number(input);
         if (Number.isNaN(num)) throw 'value must be a number';
         if (input.includes('.')) throw 'value must be a whole number';
-        if (num <= 0) throw 'number must be a positive integer';
+        if (num < 0) throw 'number must be a positive integer';
         return num;
     },
 
