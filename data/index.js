@@ -47,5 +47,6 @@ async function test() {
 module.exports = {
     users: usersData,
     listings: listingsData,
-    reviews: reviewsData
+    reviews: reviewsData,
+    conversations: conversationsData
 }
