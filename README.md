@@ -1,4 +1,4 @@
-# StevensMarketplace
+# Stevens Marketplace
 ### Team Members: Sebastian Muriel, Adefemi Fagbewesa, Julia Nelson, Gavin Snyder
 
 &nbsp;&nbsp;&nbsp;&nbsp; Students attending Stevens often find it difficult to find specific items at affordable
