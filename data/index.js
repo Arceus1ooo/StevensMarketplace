@@ -42,7 +42,7 @@ async function test() {
     await conversationsData.addMessage(message, user1._id, user2._id);
     console.log('done');
 }
-test();
+//test();
 
 module.exports = {
     users: usersData,
