@@ -49,6 +49,16 @@ module.exports = {
         return conv;
     },
 
+    async getAllMessages(sellerID, buyerID) {
+        VerifyIDs(sellerID, buyerID);
+        const conversations = await conversationsCollection();
+        const messages = await conversations.findOne(
+            { seller_id: ObjectId(sellerID), buyer_id: ObjectId(buyerID) },
+            { projection: { _id: 0, messages: 1 } }
+        );
+        return messages['messages'];
+    },
+
     createMessage(senderID, content) {
         if (!senderID) throw 'sender ID must be supplied';
         if (!content) throw 'content must be supplied';
