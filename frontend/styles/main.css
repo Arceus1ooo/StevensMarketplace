@@ -1,8 +1,14 @@
 .nav-bar{
     background-color: #ff3d3d;
-
 }
-
+.nav-bar-profile h1{
+    width: 100%;
+    height: 100%;
+    background-color: #ff5252;
+    text-align: center;
+    color: white;
+    padding: 30px 0;
+}
 .LandingText{
     color:rgb(255, 255, 255);
     font-weight: bold
@@ -50,31 +56,92 @@
     width: 200px;
 }
 
-    .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-    }
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
     
-    @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-            font-size: 3.5rem;
-        }
+@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+        font-size: 3.5rem;
     }
-    .color-overlay {
-        width: 100%;
-        height: 100%;
-        background: rgb(255, 82, 111);
-        opacity: .6;
-        position: absolute;
-      }
+}
+.color-overlay {
+    width: 100%;
+    height: 100%;
+    background: rgb(255, 82, 111);
+    opacity: .6;
+    position: absolute;
+}
 
-    #landingVideo {
-        position: fixed;
-        right: 0;
-        bottom: 0;
-        min-width: 100%;
-        min-height: 100%;
-      }
+#landingVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+}
+.profile-container {
+    background-color: #ffd7d7;
+    padding-bottom: 20px;
+}
+.profile-pic img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 10%;
+    border: 5px;
+    border-radius: 50%;
+    padding: 15px 0;
+}
+.profile-about h1{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding: 30px 0;
+}
+.profile-about p{
+    width: 20%;
+    text-align: center;
+    margin-left: 40%;
+    margin-right: 40%;
+}
+.profile-interests h1{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding: 30px 0;
+}
+.profile-interests p{
+    width: 20%;
+    text-align: center;
+    margin-left: 40%;
+    margin-right: 40%;
+}
+.profile-ratings h1{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding: 30px 0;
+}
+.profile-ratings p{
+    width: 20%;
+    text-align: center;
+    margin-left: 40%;
+    margin-right: 40%;
+}
+.profile-listings h1{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding: 30px 0;
+}
+.profile-listings p{
+    width: 20%;
+    text-align: center;
+    margin-left: 40%;
+    margin-right: 40%;
+}
