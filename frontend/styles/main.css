@@ -16,6 +16,9 @@
 .whitetext{
     color:white
 }
+.redtext{
+    color:#ff3d3d;
+}
 .center {
     margin: auto;
     width: 30%;
@@ -145,3 +148,13 @@
     margin-left: 40%;
     margin-right: 40%;
 }
+
+.truncate {
+    width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+
+  
