@@ -33,6 +33,7 @@ app.set("view engine", "hbs");
 
 const data = require('./data');
 const usersData = data.users;
+const validation = require('./validations');
 
 //Routes
 app.get("/private", (req, res) => {
@@ -119,31 +120,55 @@ app.get("/landing", (req, res) => {
 
 //Process login route
 app.post("/login", async (req, res) => {
-  const { username, password } = req.body;
-  const user = await checkUser(username, password);
+  const body = req.body;
+  if (!body.email) {
+    return res.status(400).render('login', { layout: 'index', errorText: 'email must be supplied' });
+  }
+  if (!body.password) {
+    return res.status(400).render('login', { layout: 'index', errorText: 'email must be supplied' });
+  }
 
-  if (user) {
+  try {
+    body.email = validation.VerifyEmail(body.email);
+    body.password = validation.VerifyPassword(body.password);
+  } catch (e) {
+    return res.status(400).render('login', { layout: 'index', errorText: e });
+  }
+
+  try {
+    const user = await usersData.checkUser(body.email, body.password);
     req.session.isAuthenticated = true;
-    req.session.username = username;
+    req.session.email = body.email;
     res.redirect("/home");
-  } else {
-    res.redirect("/login");
+  } catch (e) {
+    return res.status(500).render('login', { layout: 'index', errorText: e });
   }
 });
 
 //Process signup route
 app.post("/signup", async (req, res) => {
-  const { username, password } = req.body;
+  const body = req.body;
+  if (!body.email) {
+    return res.status(400).render('signup', { layout: 'index', errorText: 'email must be supplied' });
+  }
+  if (!body.password) {
+    return res.status(400).render('signup', { layout: 'index', errorText: 'email must be supplied' });
+  }
 
   try {
-    const user = {}; // Create user here
-    if (user.userInserted) {
-      res.redirect("/login");
-    } else {
-      res.redirect("/signup");
-    }
-  } catch (error) {
-    res.redirect("/signup");
+    body.email = validation.VerifyEmail(body.email);
+    body.password = validation.VerifyPassword(body.password);
+  } catch (e) {
+    return res.status(400).render('signup', { layout: 'index', errorText: e });
+  }
+
+  try {
+    const user = await usersData.createUser(body.email, body.password);
+    req.session.isAuthenticated = true;
+    req.session.email = body.email;
+    res.redirect("/home");
+  } catch (e) {
+    return res.status(500).render('signup', { layout: 'index', errorText: e });
   }
 });
 
