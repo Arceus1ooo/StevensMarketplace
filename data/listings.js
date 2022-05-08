@@ -4,7 +4,8 @@ const validation = require('../validations');
 const usersData = require('./users');
 const { ObjectId } = require('mongodb');
 
-async function VerifyListingObject(category, postDate, askPrice, desc, cond, status, sellerID) {
+async function VerifyListingObject(name, category, postDate, askPrice, desc, cond, status, sellerID) {
+    if (!name) throw 'name must be supplied';
     if (!category) throw 'category must be supplied';
     if (!postDate) throw 'posted date must be supplied';
     if (!askPrice) throw 'asking price must be supplied';
@@ -13,6 +14,7 @@ async function VerifyListingObject(category, postDate, askPrice, desc, cond, sta
     if (!status) throw 'status must be supplied';
     if (!sellerID) throw 'seller ID must be supplied';
 
+    name = validation.VerifyString(name, 'listing name');
     category = validation.VerifyCategory(category);
     postDate = validation.VerifyDate(postDate);
     askPrice = validation.VerifyFloat(String(askPrice));
@@ -23,6 +25,7 @@ async function VerifyListingObject(category, postDate, askPrice, desc, cond, sta
     const seller = await usersData.getUserByID(sellerID);
 
     let listing = {
+        name: name,
         category: category,
         postedDate: postDate,
         askingPrice: askPrice,
@@ -36,8 +39,8 @@ async function VerifyListingObject(category, postDate, askPrice, desc, cond, sta
 }
 
 module.exports = {
-    async createListing(category, postDate, askPrice, desc, cond, status, sellerID) {
-        let listing = await VerifyListingObject(category, postDate, askPrice, desc, cond, status, sellerID);
+    async createListing(name, category, postDate, askPrice, desc, cond, status, sellerID) {
+        let listing = await VerifyListingObject(name, category, postDate, askPrice, desc, cond, status, sellerID);
         const listings = await listingsCollection();
         const insertInfo = await listings.insertOne(listing);
         if (!insertInfo.acknowledged || !insertInfo.insertedId) throw 'could not add listing';
@@ -56,10 +59,18 @@ module.exports = {
         return listing;
     },
 
-    async updateListing(id, category, postDate, askPrice, desc, cond, status, sellerID) {
+    async getListingsByCategory(category) {
+        if (!category) throw 'category must be supplied';
+        category = validation.VerifyCategory(category);
+        const listings = await listingsCollection();
+        const result = await listings.find({ category: category }).toArray();
+        return result;
+    },
+
+    async updateListing(id, name, category, postDate, askPrice, desc, cond, status, sellerID) {
         if (!id) throw 'ID must be supplied';
         if (!ObjectId.isValid(id)) throw 'invalid ID';
-        let newListing = await VerifyListingObject(category, postDate, askPrice, desc, cond, status, sellerID);
+        let newListing = await VerifyListingObject(name, category, postDate, askPrice, desc, cond, status, sellerID);
 
         const listings = await listingsCollection();
         const updatedInfo = await listings.replaceOne({ _id: ObjectId(id) }, newListing);

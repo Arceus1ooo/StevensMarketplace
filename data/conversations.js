@@ -72,6 +72,16 @@ module.exports = {
         }
     },
 
+    async getAllConversations(userID) {
+        if (!userID) throw 'user ID must be supplied';
+        if (!ObjectId.isValid(userID)) throw 'invalid user ID';
+
+        const conversations = await conversationsCollection();
+        const convos = await conversations.find({ $or: [{ seller_id: ObjectId(userID) }, { buyer_id: ObjectId(userID) }] }).toArray();
+        //const convos = await conversations.find({ seller_id: ObjectId(userID) }).toArray();
+        return convos;
+    },
+
     async addMessage(newMessage, sellerID, buyerID) {
         VerifyIDs(sellerID, buyerID);
         const conv = await this.getConversation(sellerID, buyerID);

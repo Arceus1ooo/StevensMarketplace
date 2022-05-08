@@ -31,6 +31,11 @@ app.engine(".hbs", engine({ extname: ".hbs" }));
 app.set("views", path.join(__dirname, "/views"));
 app.set("view engine", "hbs");
 
+const data = require('./data');
+const usersData = data.users;
+const validation = require('./validations');
+const conversationsData = data.conversations;
+
 //Routes
 app.get("/private", (req, res) => {
   if (!req.session.isAuthenticated) {
@@ -44,11 +49,11 @@ app.get("/private", (req, res) => {
 app.get("/logout", (req, res) => {
   req.session.isAuthenticated = false;
   req.session.username = "";
-  res.redirect("/login");
+  res.redirect("/landing");
 });
 
 //Login page route
-app.get("/signin", (req, res) => {
+app.get("/login", (req, res) => {
   res.render("login", {
     layout: "index",
   });
@@ -114,33 +119,63 @@ app.get("/landing", (req, res) => {
   res.render("landing", { layout: "index" });
 });
 
-//Process login route
-app.post("/signin", async (req, res) => {
-  const { username, password } = req.body;
-  const user = await checkUser(username, password);
+app.get('/personalChat', async (req, res) => {
+  const user = await usersData.getUserByEmail(req.session.email);
+  const convos = await conversationsData.getAllConversations(user._id);
+  return res.json(convos);
+});
 
-  if (user) {
+//Process login route
+app.post("/login", async (req, res) => {
+  const body = req.body;
+  if (!body.email) {
+    return res.status(400).render('login', { layout: 'index', errorText: 'email must be supplied' });
+  }
+  if (!body.password) {
+    return res.status(400).render('login', { layout: 'index', errorText: 'email must be supplied' });
+  }
+
+  try {
+    body.email = validation.VerifyEmail(body.email);
+    body.password = validation.VerifyPassword(body.password);
+  } catch (e) {
+    return res.status(400).render('login', { layout: 'index', errorText: e });
+  }
+
+  try {
+    const user = await usersData.checkUser(body.email, body.password);
     req.session.isAuthenticated = true;
-    req.session.username = username;
+    req.session.email = body.email;
     res.redirect("/home");
-  } else {
-    res.redirect("/signin");
+  } catch (e) {
+    return res.status(500).render('login', { layout: 'index', errorText: e });
   }
 });
 
 //Process signup route
 app.post("/signup", async (req, res) => {
-  const { username, password } = req.body;
+  const body = req.body;
+  if (!body.email) {
+    return res.status(400).render('signup', { layout: 'index', errorText: 'email must be supplied' });
+  }
+  if (!body.password) {
+    return res.status(400).render('signup', { layout: 'index', errorText: 'email must be supplied' });
+  }
 
   try {
-    const user = {}; // Create user here
-    if (user.userInserted) {
-      res.redirect("/signin");
-    } else {
-      res.redirect("/signup");
-    }
-  } catch (error) {
-    res.redirect("/signup");
+    body.email = validation.VerifyEmail(body.email);
+    body.password = validation.VerifyPassword(body.password);
+  } catch (e) {
+    return res.status(400).render('signup', { layout: 'index', errorText: e });
+  }
+
+  try {
+    const user = await usersData.createUser(body.email, body.password);
+    req.session.isAuthenticated = true;
+    req.session.email = body.email;
+    res.redirect("/home");
+  } catch (e) {
+    return res.status(500).render('signup', { layout: 'index', errorText: e });
   }
 });
 
