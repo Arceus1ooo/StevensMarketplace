@@ -1,4 +1,4 @@
-(function($) {
+(function ($) {
     // We get the form element id here
     var signUpForm = $('#signup-form');
 
@@ -36,7 +36,7 @@
             if (typeof password !== 'string') throw 'Password must be of type string!';
             if (password.length < 8) throw 'Password must contain at least 8 characters!';
             const passwordNumREGEX = /[0-9]+/;
-			const passwordLettersREGEX = /[a-zA-Z]+/;
+            const passwordLettersREGEX = /[a-zA-Z]+/;
             if (!passwordNumREGEX.test(password) || !passwordLettersREGEX.test(password)) throw 'Password must contain at least 1 letter and 1 number!';
         } catch (e) {
             errorList.push(e);
@@ -64,13 +64,13 @@
             // Submit an ajax request to POST
             var requestConfig = {
                 method: 'POST',
-                url: '/signup',
+                url: '/account/signup',
                 contentType: 'application/json',
                 data: JSON.stringify({
                     email,
                     password
                 }),
-                error: function(e) {
+                error: function (e) {
                     // Hide our account creation message...
                     accountCreationMsg.hide();
                     var errorMsg = $('<p>');

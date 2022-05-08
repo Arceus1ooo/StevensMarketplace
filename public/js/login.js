@@ -1,4 +1,4 @@
-(function($) {
+(function ($) {
     // We get the form element id here
     var loginForm = $('#login-form');
 
@@ -25,7 +25,7 @@
         if (password === undefined || password === null) errorList.push('You must provide your password!');
         if (typeof password !== 'string') errorList.push('Password must be of type string!');
         password = password.trim();
-		if (password==='') errorList.push('Password cannot be empty!');
+        if (password === '') errorList.push('Password cannot be empty!');
 
         // Now we check and see if there were any errors
         if (errorList.length > 0) {
@@ -46,7 +46,7 @@
 
             var requestConfig = {
                 method: 'POST',
-                url: '/signin',
+                url: '/account/login',
                 contentType: 'application/json',
                 data: JSON.stringify({
                     email,

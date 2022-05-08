@@ -12,10 +12,11 @@ async function test() {
         console.log(e);
     }
     try {
-        let test = await usersData.createUser('blah@blah.com', 'password1');
-        console.log(test);
+        //let test = await usersData.createUser('blah@blah.com', 'password1');
+        let test1 = await usersData.checkUser('test@test.com', 'password');
+        console.log(test1 + "  ___");
     } catch (e) {
-        console.log(e);
+        console.log(e + " -----");
     }
     let user1 = await usersData.getUserByEmail('test@test.com');
     let user2 = await usersData.getUserByEmail('blah@blah.com');

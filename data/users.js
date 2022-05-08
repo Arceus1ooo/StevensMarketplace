@@ -43,7 +43,7 @@ module.exports = {
 
         let match = false;
         try {
-            match = await bcrypt.compare(password, user.password);
+            match = await bcrypt.compare(password, user.hashPassword);
         } catch (e) { }
         if (!match) throw 'Either the email or password is invalid';
 
