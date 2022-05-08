@@ -159,7 +159,7 @@
 
 .test{
 background: rgb(255, 61, 61);
-background: linear-gradient(300deg, rgba(255, 61, 61, 1) 29%, rgba(255, 61, 61, 0.6156045181744573) 100%);
+background: linear-gradient(45deg, rgba(255, 61, 61, 1) 29%, rgba(255, 61, 61, 0.6156045181744573) 100%);
 }
 .test2{
     background: rgb(255, 61, 61);
@@ -173,4 +173,12 @@ background: linear-gradient(300deg, rgba(255, 61, 61, 1) 29%, rgba(255, 61, 61, 
 }
 .chatfill{
     height: 20vh;
+}
+.pagefill{ 
+    height: 50vh;
+
+}
+
+.roundsquare{
+    border-radius: 5px;
 }
