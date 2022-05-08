@@ -78,7 +78,8 @@ module.exports = {
 
         const conversations = await conversationsCollection();
         const convos = await conversations.find({ $or: [{ seller_id: ObjectId(userID) }, { buyer_id: ObjectId(userID) }] }).toArray();
-        console.log(convos);
+        //const convos = await conversations.find({ seller_id: ObjectId(userID) }).toArray();
+        return convos;
     },
 
     async addMessage(newMessage, sellerID, buyerID) {
