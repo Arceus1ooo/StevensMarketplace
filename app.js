@@ -31,6 +31,9 @@ app.engine(".hbs", engine({ extname: ".hbs" }));
 app.set("views", path.join(__dirname, "/views"));
 app.set("view engine", "hbs");
 
+const data = require('./data');
+const usersData = data.users;
+
 //Routes
 app.get("/private", (req, res) => {
   if (!req.session.isAuthenticated) {
@@ -44,11 +47,11 @@ app.get("/private", (req, res) => {
 app.get("/logout", (req, res) => {
   req.session.isAuthenticated = false;
   req.session.username = "";
-  res.redirect("/login");
+  res.redirect("/landing");
 });
 
 //Login page route
-app.get("/signin", (req, res) => {
+app.get("/login", (req, res) => {
   res.render("login", {
     layout: "index",
   });
@@ -115,7 +118,7 @@ app.get("/landing", (req, res) => {
 });
 
 //Process login route
-app.post("/signin", async (req, res) => {
+app.post("/login", async (req, res) => {
   const { username, password } = req.body;
   const user = await checkUser(username, password);
 
@@ -124,7 +127,7 @@ app.post("/signin", async (req, res) => {
     req.session.username = username;
     res.redirect("/home");
   } else {
-    res.redirect("/signin");
+    res.redirect("/login");
   }
 });
 
@@ -135,7 +138,7 @@ app.post("/signup", async (req, res) => {
   try {
     const user = {}; // Create user here
     if (user.userInserted) {
-      res.redirect("/signin");
+      res.redirect("/login");
     } else {
       res.redirect("/signup");
     }
