@@ -233,3 +233,8 @@ h5,
 h6 {
   font-weight: 700;
 }
+
+.form-label {
+  font-size: 0.8rem;
+  transform: translateY(-100%);
+}
