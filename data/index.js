@@ -4,6 +4,7 @@ const reviewsData = require('./reviews');
 const conversationsData = require('./conversations');
 
 async function test() {
+    //console.log(await listingsData.getAllListings());
     try {
         let test = await usersData.createUser('test@test.com', 'password');
         console.log(test);
@@ -40,7 +41,7 @@ async function test() {
     let message = await conversationsData.createMessage(user1._id, 'hello');
     //console.log(message);
     await conversationsData.addMessage(message, user1._id, user2._id);
-    console.log(await conversationsData.getAllMessages(user1._id, user2._id));
+    //console.log(await conversationsData.getAllMessages(user1._id, user2._id));
     console.log('done');
 }
 //test();

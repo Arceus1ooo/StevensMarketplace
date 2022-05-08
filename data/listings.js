@@ -56,6 +56,15 @@ module.exports = {
         return listing;
     },
 
+    async getAllListings() {
+        const listings = await listingsCollection();
+        const result = await listings.find({}).toArray();
+        for (listing of result) {
+            listing._id = listing._id.toString();
+        }
+        return result;
+    },
+
     async updateListing(id, category, postDate, askPrice, desc, cond, status, sellerID) {
         if (!id) throw 'ID must be supplied';
         if (!ObjectId.isValid(id)) throw 'invalid ID';
