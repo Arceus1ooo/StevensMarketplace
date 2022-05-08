@@ -1,4 +1,6 @@
 @import "mdb-ui-kit/css/mdb.min.css";
+@import "mdbootstrap/css/bootstrap.min.css";
+@import "mdbootstrap/css/style.css";
 .nav-bar {
   background-color: #ff3d3d;
 }
