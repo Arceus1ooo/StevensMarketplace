@@ -34,6 +34,7 @@ app.set("view engine", "hbs");
 const data = require('./data');
 const usersData = data.users;
 const validation = require('./validations');
+const conversationsData = data.conversations;
 
 //Routes
 app.get("/private", (req, res) => {
@@ -116,6 +117,12 @@ app.get("/home", (req, res) => {
 //Home page route
 app.get("/landing", (req, res) => {
   res.render("landing", { layout: "index" });
+});
+
+app.get('/personalChat', async (req, res) => {
+  const user = await usersData.getUserByEmail(req.session.email);
+  const convos = await conversationsData.getAllConversations(user._id);
+  return res.json(convos);
 });
 
 //Process login route
