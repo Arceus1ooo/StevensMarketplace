@@ -16,6 +16,9 @@
 .whitetext {
   color: white;
 }
+.redtext {
+  color: #ff3d3d;
+}
 .center {
   margin: auto;
   width: 30%;
@@ -146,4 +149,86 @@
   text-align: center;
   margin-left: 40%;
   margin-right: 40%;
+}
+
+.truncate {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.test {
+  background: rgb(255, 61, 61);
+  background: linear-gradient(
+    45deg,
+    rgba(255, 61, 61, 1) 29%,
+    rgba(255, 61, 61, 0.6156045181744573) 100%
+  );
+}
+.test2 {
+  background: rgb(255, 61, 61);
+  background: linear-gradient(
+    326deg,
+    rgba(255, 61, 61, 1) 29%,
+    rgba(255, 61, 61, 0.6156045181744573) 100%
+  );
+}
+
+.chatbg {
+  background: rgb(255, 250, 250);
+  border-radius: 15px;
+}
+.chatfill {
+  height: 20vh;
+}
+.pagefill {
+  height: 35vh;
+}
+
+.roundsquare {
+  border-radius: 5px;
+}
+
+.footer-copyright {
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.page-wrapper .test2 {
+  flex-grow: 1;
+}
+
+.form-container {
+  max-width: 460px;
+}
+
+.form-container-2 {
+  max-width: 600px;
+}
+
+.btn {
+  border-radius: 6px;
+}
+
+.form-label {
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
 }

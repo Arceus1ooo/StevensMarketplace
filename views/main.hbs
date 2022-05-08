@@ -57,7 +57,20 @@
   </div>
 </nav>
 
-{{> info}}
+<section class="nav-bar">
+  <div class="container p-3">
+    <article class="">
+      <h1 class="display-4 whitetext">
+        Sell products &
+        <br />
+        brands in our marketplace!
+      </h1>
+      <p class="lead text-white">Bringing you excellent service by connecting
+        what matters.</p>
+      <a href="#" class="btn btn-white"> Learn more </a>
+    </article>
+  </div>
+</section>
 <div class="title text-center my-4">
   <h2 class="redtext">Available Listings</h2>
   <div class="">
@@ -73,7 +86,38 @@
 
 <section class="padding-y">
   <div class="parent-container d-flex">
-    {{> filters}}
+    <div class="d-flex-responsive align-center">
+      <div class="row offset-right-5">
+        <div class="d-flex-responsive">
+          <p>
+            <a
+              class="btn btn-danger w-100 d-flex align-items-center justify-content-between"
+              data-bs-toggle="collapse"
+              href="#collapseExample"
+              role="button"
+              aria-expanded="true"
+              aria-controls="collapseExample"
+            >
+              <span class=""><span class="ps-3">ALL CATEGORIES</span></span>
+              <span class="fas fa-chevron-down"></span>
+            </a>
+          </p>
+          <div class="collapse show border ps-3" id="collapseExample">
+            <ul class="list-unstyled ps-3">
+              <li><a class="dropdown-item redtext" href="#">Electronics</a></li>
+              <li><a class="dropdown-item" href="#">Furniture</a></li>
+              <li><a class="dropdown-item" href="#">Home Appliances</a></li>
+              <li><a class="dropdown-item" href="#">Video Games</a></li>
+              <li><a class="dropdown-item" href="#">Foods</a></li>
+              <li><a class="dropdown-item" href="#">Clothing</a></li>
+              <li><a class="dropdown-item" href="#">Class Material</a></li>
+              <li><a class="dropdown-item" href="#">Homework</a></li>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="container">
       <header class="section-heading">
         <h3 class="section-title redtext my-3">New Products</h3>

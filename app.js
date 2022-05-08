@@ -7,7 +7,7 @@ const port = process.env.PORT || 3000;
 const logger = require("./middleware/logger");
 
 //Loads the handlebars module
-const { engine } = require("express-handlebars");
+const { engine, ExpressHandlebars } = require("express-handlebars");
 
 //Enable body and query params parsing
 app.use(express.urlencoded({ extended: true }));
@@ -44,7 +44,7 @@ app.get("/private", (req, res) => {
 app.get("/logout", (req, res) => {
   req.session.isAuthenticated = false;
   req.session.username = "";
-  res.redirect("/signin");
+  res.redirect("/login");
 });
 
 //Login page route
@@ -54,18 +54,54 @@ app.get("/signin", (req, res) => {
   });
 });
 
-//Process login route
-app.post("/signin", async (req, res) => {
-  const { username, password } = req.body;
-  const user =  {};// Handle login;
+//Create listings page route
+app.get("/listings/create", (req, res) => {
+  res.render("createListings", {
+    layout: "index",
+  });
+});
 
-  if (user) {
-    req.session.isAuthenticated = true;
-    req.session.username = username;
-    res.redirect("/listings");
-  } else {
-    res.redirect("/signin");
-  }
+//Create listings page route
+app.get("/profile/:id/listings", (req, res) => {
+  res.render("userListings", {
+    layout: "index",
+  });
+});
+
+//Create listings page route
+app.get("/listings/saved", (req, res) => {
+  res.render("savedListings", {
+    layout: "index",
+  });
+});
+
+//Create listings page route
+app.get("/profile/create", (req, res) => {
+  res.render("createProfile", {
+    layout: "index",
+  });
+});
+
+//Create listings page route
+app.get("/profile/create", (req, res) => {
+  res.render("createProfile", {
+    layout: "index",
+  });
+});
+
+//Home page route
+app.get("/profile", (req, res) => {
+  res.render("profile", { layout: "index" });
+});
+
+//Home page route
+app.get("/profile/:id", (req, res) => {
+  res.render("profile", { layout: "index" });
+});
+
+//Home page route
+app.get("/chat", (req, res) => {
+  res.render("personalChat", { layout: "index" });
 });
 
 //Signup page route
@@ -79,8 +115,22 @@ app.get("/home", (req, res) => {
 });
 
 //Home page route
-app.get("/profile", (req, res) => {
-  res.render("profile", { layout: "index" });
+app.get("/landing", (req, res) => {
+  res.render("landing", { layout: "index" });
+});
+
+//Process login route
+app.post("/signin", async (req, res) => {
+  const { username, password } = req.body;
+  const user = await checkUser(username, password);
+
+  if (user) {
+    req.session.isAuthenticated = true;
+    req.session.username = username;
+    res.redirect("/home");
+  } else {
+    res.redirect("/signin");
+  }
 });
 
 //Process signup route
@@ -102,9 +152,9 @@ app.post("/signup", async (req, res) => {
 //Default route
 app.get("/", (req, res) => {
   if (req.session.isAuthenticated) {
-    res.redirect("/listings");    // Redirect to listings if authenticated or different 
-    } else {
     res.redirect("/home");
+  } else {
+    res.redirect("/landing");
   }
 });
 
