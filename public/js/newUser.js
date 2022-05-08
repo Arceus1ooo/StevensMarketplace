@@ -12,24 +12,10 @@
         errors.empty();
 
         // Get all inputs
-        var username = $('#username').val().toLowerCase();
         var email = $('#email').val().toLowerCase();
         var password = $('#password').val();
 
         var errorList = [];
-        // Error check username
-        try {
-            if (username === undefined || username === '') throw 'A username is required!';
-            if (typeof username !== 'string') throw 'Username must be of type string!';
-            username = username.trim();
-            if (username === '') throw 'Username cannot be empty!';
-            if (username.length > 128) throw 'Username cannot contain more than 128 characters!';
-            const usernameREGEX = /^([a-zA-Z0-9\-\_\.]+)$/;
-            console.log(username);
-            if (!usernameREGEX.test(username)) throw 'Username can only contain alphanumerical characters, -, ., or _!';
-        } catch (e) {
-            errorList.push(e);
-        }
 
         // Error check email
         try {
@@ -78,10 +64,9 @@
             // Submit an ajax request to POST
             var requestConfig = {
                 method: 'POST',
-                url: '',
+                url: '/signup',
                 contentType: 'application/json',
                 data: JSON.stringify({
-                    username,
                     email,
                     password
                 }),
