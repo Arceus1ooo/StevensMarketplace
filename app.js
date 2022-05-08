@@ -82,12 +82,7 @@ app.get("/profile/create", (req, res) => {
   });
 });
 
-//Create listings page route
-app.get("/profile/create", (req, res) => {
-  res.render("createProfile", {
-    layout: "index",
-  });
-});
+
 
 //Home page route
 app.get("/profile", (req, res) => {
