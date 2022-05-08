@@ -7,22 +7,22 @@
         // Prevent default page reload
         event.preventDefault();
 
-        // Get username and password inputs
-        var username = $('#username').val();
+        // Get email and password inputs
+        var email = $('#email').val();
         var password = $('#password').val();
 
         var errorList = [];
 
-        // Username error checking
-        if (username === undefined || username === null) errorList.push('You must provide your username!');
-        if (typeof username !== 'string') errorList.push('Username must be of type string!');
-        username = username.trim();
-        if (username === '') errorList.push('Username cannot be empty!');
-        const usernameREGEX = /[ 	]/;
-		if (usernameREGEX.test(username)) errorList.push('Username must not contain any whitespace characters!');
+        // Email error checking
+        if (email === undefined || email === '') throw 'An email is required!';
+        if (typeof email !== 'string') throw 'Email must be of type string!';
+        email = email.trim();
+        if (email === '') throw 'Email cannot be empty!';
+        const emailREGEX = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+        if (!emailREGEX.test(email)) throw 'Email must abide by the following format example: example@domain.suffix';
 
-        // Paswword error checking
-        if (password === undefined || username === null) errorList.push('You must provide your password!');
+        // Password error checking
+        if (password === undefined || password === null) errorList.push('You must provide your password!');
         if (typeof password !== 'string') errorList.push('Password must be of type string!');
         password = password.trim();
 		if (password==='') errorList.push('Password cannot be empty!');
@@ -46,10 +46,10 @@
 
             var requestConfig = {
                 method: 'POST',
-                url: '',
+                url: '/signin',
                 contentType: 'application/json',
                 data: JSON.stringify({
-                    username,
+                    email,
                     password
                 }),
                 error: function (e) {
