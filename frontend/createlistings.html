@@ -66,15 +66,35 @@
                     <form>
                         <div class="mb-3">
                             <label  class="form-label font-weight-bold" >Name of the item:</label>
-                            <input type="email" class="form-control" id="" aria-describedby="emailHelp" placeholder="Ex: Television">
+                            <input type="email" class="form-control" maxlength = "40" id="" aria-describedby="emailHelp" placeholder="Ex: Television">
                             <div id="emailHelp" class="form-text">Enter the name of the item you are selling!</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label font-weight-bold">Cost of the Item:</label>
+                            <textarea class="form-control" maxlength="4" id="exampleFormControlTextarea1"
+                                placeholder="Ex: 35.00" rows="1"></textarea>
+                            <div id="emailHelp" class="form-text">How much do you want to sell it for? (Dollars) </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label font-weight-bold">Category of Item:</label>
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Categories</option>
+                                <option value="1">Furniture</option>
+                                <option value="3">Home Appliances</option>
+                                <option value="4">Video Games</option>
+                                <option value="5">Foods</option>
+                                <option value="5">Clothing</option>
+                                <option value="5">Class Material</option>
+                                <option value="5">Homework</option>
+
+                            </select>
+                            <div id="emailHelp" class="form-text">What category best fits your item?</div>
                         </div>
                         <div class="mb-3">
                             <label  class="form-label font-weight-bold">Quality of Item:</label>
                             <select class="form-select" aria-label="Default select example">
                                 <option selected>Choose Item Condition</option>
                                 <option value="1">Poor</option>
-                                <option value="2">Below Average</option>
                                 <option value="3">Average</option>
                                 <option value="4">Good</option>
                                 <option value="5">Excellent</option>
@@ -83,7 +103,7 @@
                         </div>
                         <div class="mb-3">
                             <label  class="form-label font-weight-bold">Item Description:</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Ex: Selling a brand new PS5, with 2 controllers and GTA V for $200!" rows="3"></textarea>
+                            <textarea class="form-control" maxlength = "250" id="exampleFormControlTextarea1" placeholder="Ex: Selling a brand new PS5, with 2 controllers and GTA V for $200!" rows="3"></textarea>
                             <div id="emailHelp" class="form-text">Describe your item to your potential buyers!</div>
                         </div>
 
