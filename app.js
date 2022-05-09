@@ -136,11 +136,6 @@ app.get("/profile/:id", (req, res) => {
   res.render("profile", { layout: "index" });
 });
 
-//Home page route
-app.get("/chat", (req, res) => {
-  res.render("personalChat", { layout: "index" });
-});
-
 //Signup page route
 app.get("/signup", (req, res) => {
   res.render("signup", { layout: "index" });
@@ -159,7 +154,18 @@ app.get("/landing", (req, res) => {
 app.get('/personalChat', async (req, res) => {
   const user = await usersData.getUserByEmail(req.session.email);
   const convos = await conversationsData.getAllConversations(user._id);
-  return res.json(convos);
+  let names = [];
+  for (let convo of convos) {
+    const seller = await usersData.getUserByID(convo.seller_id);
+    const buyer = await usersData.getUserByID(convo.buyer_id);
+    if (seller.email.toLowerCase() === req.session.email.toLowerCase()) {
+      names.push(`${buyer.firstName} ${buyer.lastName}`);
+    }
+    else {
+      names.push(`${seller.firstName} ${seller.lastName}`);
+    }
+  }
+  res.render("personalChat", { layout: "index", names: names });
 });
 
 //Process login route

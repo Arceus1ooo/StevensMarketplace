@@ -38,6 +38,7 @@ module.exports = {
     async getConversation(sellerID, buyerID) {
         VerifyIDs(sellerID, buyerID);
         const conversations = await conversationsCollection();
+        console.log(sellerID, buyerID);
         const conv = await conversations.findOne({ seller_id: ObjectId(sellerID), buyer_id: ObjectId(buyerID) });
         if (!conv) throw 'could not find conversation';
 
@@ -78,7 +79,10 @@ module.exports = {
 
         const conversations = await conversationsCollection();
         const convos = await conversations.find({ $or: [{ seller_id: ObjectId(userID) }, { buyer_id: ObjectId(userID) }] }).toArray();
-        //const convos = await conversations.find({ seller_id: ObjectId(userID) }).toArray();
+        for (let convo of convos) {
+            convo.seller_id = convo.seller_id.toString();
+            convo.buyer_id = convo.buyer_id.toString();
+        }
         return convos;
     },
 
