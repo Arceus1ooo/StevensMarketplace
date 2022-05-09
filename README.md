@@ -34,7 +34,7 @@ Start the server
   npm run start
 ```
 
-Potential Session Secret
+Potential Session Secret Issue
 
 ```bash
     touch .env
