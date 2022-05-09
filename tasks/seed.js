@@ -18,43 +18,19 @@ const main = async () => {
     // Now we create 5 student users
     let user1;
     try {
-        user1 = await users.createUser({
-            firstName: "Sebastian",
-            lastName: "Muriel",
-            email: "smuriel@stevens.edu",
-            hashedPassword: genHP("smuriel101"),
-            userListings: [],
-            reviews: [],
-            overallRating: 0
-        });
+        user1 = await users.createUser('test@test.com', 'password');
     } catch (e) {
         console.log(`Error in creation of user 1: ${e}`)
     }
     let user2;
     try {
-        user2 = await users.createUser({
-            firstName: "Johnny",
-            lastName: "Bravo",
-            email: "johnbravo@gmail.com",
-            hashedPassword: genHP("bravoJ123"),
-            userListings: [],
-            reviews: [],
-            overallRating: 0
-        });
+        user2 = await users.createUser('blah2@blah.com', 'password1');
     } catch (e) {
         console.log(`Error in creation of user 2: ${e}`)
     }
     let user3;
     try {
-        user3 = await users.createUser({
-            firstName: "William",
-            lastName: "Harlow",
-            email: "willharl4059@gmail.com",
-            hashedPassword: genHP("willwill78910"),
-            userListings: [],
-            reviews: [],
-            overallRating: 0
-        });
+        user3 = await users.createUser('yoyo@gmail.com', 'password2');
     } catch (e) {
         console.log(`Error in creation of user 3: ${e}`)
     }
