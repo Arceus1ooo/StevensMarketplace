@@ -4,15 +4,8 @@
       <h2 class="redtext">STEVENS MARKETPLACE</h2>
     </a>
 
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="">
@@ -55,35 +48,37 @@
       <img src="images\profile_symbol.jpg" alt="" width="130" height="180" />
     </div>
     <div class="profile-about">
-      <h1>About</h1>
-      <p>This is where you (the user) can give a little description about
-        yourself. Let everyone know just how cool you are!</p>
+      <h1>First Name</h1>
+      <p>{{user.firstName}}</p>
     </div>
     <div class="profile-interests">
-      <h1>Interests</h1>
-      <p>Tell us about some of the things you're interested in buying/selling on
-        our website!</p>
+      <h1>Last Name</h1>
+      <p>{{user.lastName}}</p>
     </div>
     <div class="profile-ratings">
-      <h1>Ratings</h1>
-      <p>Here is where your ratings (as a seller) made by other buyers will
-        appear after every processed order.</p>
+      <h1>Overall Rating</h1>
+      <p>{{user.overallRating}}</p>
     </div>
     <div class="profile-listings">
       <h1>Listings</h1>
       <p>This is where your listings (as a seller) will appear. Any item you are
         currently trying to sell can be seen here!</p>
+      <ul>
+        {{#each user.userListings}}
+        <p>{{this.name}}</p>
+        {{/each}}
+      </ul>
     </div>
 
-    <div class = "text-center">
-        <span>
-            <button class="btn btn-lg btn-danger">
-                <a class=" font-weight-bold whitetext">CREATE LISTING</a>
-            </button>
-            <button class="btn btn-lg btn-primary">
-                <a class="whitetext font-weight-bold">UPDATE PROFILE</a>
-            </button>
-        </span>
+    <div class="text-center">
+      <span>
+        <button class="btn btn-lg btn-danger">
+          <a class=" font-weight-bold whitetext" href="/listings/create">CREATE LISTING</a>
+        </button>
+        <button class="btn btn-lg btn-primary">
+          <a class="whitetext font-weight-bold" href="/profile/create">UPDATE PROFILE</a>
+        </button>
+      </span>
     </div>
 
   </div>

@@ -69,39 +69,30 @@ module.exports = {
         return user;
     },
 
-    async updateUserByID(id, first, last, email, password, listings, reviews, rating) {
+    async updateUserByID(id, first, last) {
         if (!id) throw 'ID must be supplied';
         if (!first) throw 'first name must be supplied';
         if (!last) throw 'last name must be supplied';
-        if (!email) throw 'email must be supplied';
-        if (!password) throw 'password must be supplied';
-        if (!listings) throw 'user listings must be supplied';
-        if (!reviews) throw 'reviews must be supplied';
-        if (!rating) throw 'overall rating must be supplied';
 
         if (!ObjectId.isValid(id)) throw 'invalid ID';
         first = validation.VerifyName(first);
         last = validation.VerifyName(last);
-        email = validation.VerifyEmail(email);
-        password = validation.VerifyPassword(password);
-        validation.VerifyArray(listings);
-        validation.VerifyArray(reviews);
-        rating = validation.VerifyRating(String(rating));
-        const hashedPwd = await bcrypt.hash(password, saltRounds);
+
+        const user = await this.getUserByID(id);
 
         let newUser = {
             firstName: first,
             lastName: last,
-            email: email,
-            hashPassword: hashedPwd,
-            userListings: listings,
-            reviews: reviews,
-            overallRating: rating
+            email: user.email,
+            hashPassword: user.hashedPwd,
+            userListings: user.userListings,
+            reviews: user.reviews,
+            overallRating: user.overallRating
         };
 
         const users = await usersCollection();
         const updatedInfo = await users.replaceOne({ _id: ObjectId(id) }, newUser);
-        if (updatedInfo.modifiedCount === 0) throw 'Error: could not update listing';
+        if (updatedInfo.modifiedCount === 0) throw 'Error: could not update user';
         return await this.getUserByID(id);
     },
 
