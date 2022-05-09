@@ -159,13 +159,29 @@ app.get('/chat', async (req, res) => {
     const seller = await usersData.getUserByID(convo.seller_id);
     const buyer = await usersData.getUserByID(convo.buyer_id);
     if (seller.email.toLowerCase() === req.session.email.toLowerCase()) {
-      names.push(`${buyer.firstName} ${buyer.lastName}`);
+      names.push({ name: `${buyer.firstName} ${buyer.lastName}`, id: buyer._id, type: 'buyer' });
     }
     else {
-      names.push(`${seller.firstName} ${seller.lastName}`);
+      names.push({ name: `${seller.firstName} ${seller.lastName}`, id: seller._id, type: 'seller' });
     }
   }
   res.render("personalChat", { layout: "index", names: names });
+});
+
+app.post('/chat', async (req, res) => {
+  const user = await usersData.getUserByEmail(req.session.email);
+  const otherID = req.body.id;
+  const otherType = req.body.type;
+  const userID = user._id;
+
+  if (otherType === 'buyer') {
+    const messages = await conversationsData.getAllMessages(userID, otherID);
+    return res.json({ "Messages": messages });
+  }
+  else {
+    const messages = await conversationsData.getAllConversations(otherID, userID);
+    return res.json({ "Messages": messages });
+  }
 });
 
 //Process login route
