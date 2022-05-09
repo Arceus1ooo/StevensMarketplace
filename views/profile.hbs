@@ -38,49 +38,50 @@
   </div>
 </nav>
 
-<section class="nav-bar">
-  <div class="container d-flex justify-content-center">
-     <div class="my-5  col-5 card-body chatbg text-center ">
-        <div class="nav-bar-profile">
-          <h1>Profile</h1>
+<section class="test2">
+    <div class="container d-flex justify-content-center">
+        <div class="my-5 col-5 card-body chatbg text-center ">
+            <div class="card test2 card-body">
+                <h1 class = "whitetext">Profile</h1>
+            </div>
+            <div class="my-5">
+                <img src="images\profile_symbol.jpg" alt="" width="200" height="180" />
+            </div>
+            <div class="">
+                <h1>First Name</h1>
+                <p>{{user.firstName}}</p>
+            </div>
+            <div class="">
+                <h1>Last Name</h1>
+                <p>{{user.lastName}}</p>
+            </div>
+            <div class="">
+                <h1>Overall Rating</h1>
+                <p>{{user.overallRating}}</p>
+            </div>
+            <div class="">
+                <h1>Listings</h1>
+                <p>This is where your listings (as a seller) will appear. Any item you are
+                    currently trying to sell can be seen here!</p>
+                <ul>
+                    {{#each user.userListings}}
+                    <p>{{this.name}}</p>
+                    {{/each}}
+                </ul>
+            </div>
         </div>
-        <div class="profile-pic">
-          <img src="images\profile_symbol.jpg" alt="" width="130" height="180" />
-        </div>
-        <div class="profile-about">
-          <h1>First Name</h1>
-          <p>{{user.firstName}}</p>
-        </div>
-        <div class="profile-interests">
-          <h1>Last Name</h1>
-          <p>{{user.lastName}}</p>
-        </div>
-        <div class="profile-ratings">
-          <h1>Overall Rating</h1>
-          <p>{{user.overallRating}}</p>
-        </div>
-        <div class="profile-listings">
-          <h1>Listings</h1>
-          <p>This is where your listings (as a seller) will appear. Any item you are
-            currently trying to sell can be seen here!</p>
-          <ul>
-            {{#each user.userListings}}
-            <p>{{this.name}}</p>
-            {{/each}}
-          </ul>
-        </div>
-      </div>
 
-    <div class="text-center">
-      <span>
-        <button class="btn btn-lg btn-danger">
-          <a class=" font-weight-bold whitetext" href="/listings/create">CREATE LISTING</a>
-        </button>
-        <button class="btn btn-lg btn-primary">
-          <a class="whitetext font-weight-bold" href="/profile/create">UPDATE PROFILE</a>
-        </button>
-      </span>
+        
+
     </div>
-
-  </div>
+    <div class="text-center">
+        <span>
+            <button class="btn btn-lg btn-danger">
+                <a class=" font-weight-bold whitetext" href="/listings/create">CREATE LISTING</a>
+            </button>
+            <button class="btn btn-lg btn-primary">
+                <a class="whitetext font-weight-bold" href="/profile/create">UPDATE PROFILE</a>
+            </button>
+        </span>
+    </div>
 </section>
