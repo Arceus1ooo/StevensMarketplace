@@ -151,7 +151,7 @@ app.get("/landing", (req, res) => {
   res.render("landing", { layout: "index" });
 });
 
-app.get('/personalChat', async (req, res) => {
+app.get('/chat', async (req, res) => {
   const user = await usersData.getUserByEmail(req.session.email);
   const convos = await conversationsData.getAllConversations(user._id);
   let names = [];
@@ -197,7 +197,7 @@ app.post("/login", async (req, res) => {
 
   let hashedPassword;
   try {
-    ({hashedPassword} = await userData.getUserByEmail(email));
+    ({ hashedPassword } = await userData.getUserByEmail(email));
     if (!hashedPassword) throw `No password found for user with email: ${email}.`;
   } catch (e) {
     return res.status(400).render('login', { layout: 'index', errorText: e });
@@ -205,11 +205,11 @@ app.post("/login", async (req, res) => {
 
   const match = await bcrypt.compare(password, hashedPassword);
   if (match) {
-    req.session.user = {email};
-    res.status(200).json({message: 'success'});
+    req.session.user = { email };
+    res.status(200).json({ message: 'success' });
   } else {
-    res.status(400).json({error: 'Invalid username or password.'});
-		return;
+    res.status(400).json({ error: 'Invalid username or password.' });
+    return;
   }
 });
 
