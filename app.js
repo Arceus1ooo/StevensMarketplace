@@ -41,14 +41,14 @@ app.get("/private", (req, res) => {
   if (!req.session.isAuthenticated) {
     res.redirect("/login");
   } else {
-    res.render("private", { layout: "index", user: req.session.username });
+    res.render("private", { layout: "index", user: req.session.email });
   }
 });
 
 //Logout
 app.get("/logout", (req, res) => {
   req.session.isAuthenticated = false;
-  req.session.username = "";
+  req.session.email = "";
   res.redirect("/landing");
 });
 
