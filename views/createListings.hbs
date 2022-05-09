@@ -1,32 +1,25 @@
 <nav class="navbar navbar-expand-lg navbar-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/landing">
+    <a class="navbar-brand" href="/home">
       <h2 class="redtext">STEVENS MARKETPLACE</h2>
     </a>
 
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
           <button type="button " class="btn">
-            <a class="nav-link" href="/personalChat">
+            <a class="nav-link" href="/chat">
               <i class="bi bi-chat-dots"></i>
             </a>
           </button>
         </li>
         <li class="nav-item">
           <button type="button " class="btn">
-            <a class="nav-link" href="/savedListings">
+            <a class="nav-link" href="/listings/saved">
               <i class="bi bi-bag"></i>
             </a>
           </button>
@@ -44,83 +37,66 @@
     </div>
   </div>
 </nav>
-  <div class="test2">
-    <div class="container d-flex justify-content-center">
+<div class="test2">
+  <div class="container d-flex justify-content-center">
 
-      <div class="my-5 col-5 card-body chatbg form-container-2">
-        <h3 class="font-weight-bold redtext text-center">Create a new listing!</h3>
-        <form>
-          <div class="mb-3">
-            <label class="form-label font-weight-bold">Name of the item:</label>
-            <input
-              type="text"
-              class="form-control"
-              maxlength="40"
-              id=""
-              aria-describedby=""
-              placeholder="Ex: Television"
-            />
-            <div id="" class="form-text">Enter the name of the item you
-              are selling!</div>
+    <div class="my-5 col-5 card-body chatbg form-container-2">
+      <h3 class="font-weight-bold redtext text-center">Create a new listing!</h3>
+      <form method="POST" action="/listings/create">
+        <div class="mb-3">
+          <label class="form-label font-weight-bold">Name of the item:</label>
+          <input type="text" name="name" class="form-control" maxlength="40" id="" aria-describedby=""
+            placeholder="Ex: Television" />
+          <div id="" class="form-text">Enter the name of the item you
+            are selling!</div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label font-weight-bold">Cost of the Item:</label>
+          <input type="number" name="price" class="form-control" placeholder="Ex: 35.00" />
+          <div id="" class="form-text">How much do you want to sell
+            it for? (Dollars)
           </div>
-          <div class="mb-3">
-            <label class="form-label font-weight-bold">Cost of the Item:</label>
-            <input type = "number" class="form-control" placeholder="Ex: 35.00"/>
-            <div id="" class="form-text">How much do you want to sell
-              it for? (Dollars)
-            </div>
-          </div>
-          <div class="mb-3">
-            <label class="form-label font-weight-bold">Category of Item:</label>
-            <select class="form-select" aria-label="Default select example">
-              <option selected>Electronics</option>
-              <option value="1">Furniture</option>
-              <option value="3">Home Appliances</option>
-              <option value="4">Video Games</option>
-              <option value="5">Foods</option>
-              <option value="5">Clothing</option>
-              <option value="5">Class Material</option>
-              <option value="5">Homework</option>
+        </div>
+        <div class="mb-3">
+          <label class="form-label font-weight-bold">Category of Item:</label>
+          <select class="form-select" name="category" aria-label="Default select example">
+            <option value="Technology" selected>Technology</option>
+            <option value="Furniture">Furniture</option>
+            <option value="Sports Gear">Sports Gear</option>
+            <option value="Textbook">Textbook</option>
+          </select>
+          <div id="" class="form-text">What category best fits your
+            item?</div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label font-weight-bold">Quality of Item:</label>
+          <select class="form-select" name="condition" aria-label="Default select example">
+            <option value="New" selected>New</option>
+            <option value="Good">Good</option>
+            <option value="Fair">Fair</option>
+            <option value="Poor">Poor</option>
+          </select>
+          <div id="" class="form-text">How would you rate the quality
+            of your item?</div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label font-weight-bold">Item Description:</label>
+          <textarea name="description" class="form-control" maxlength="250" id=""
+            placeholder="Ex: Selling a brand new PS5, with 2 controllers and GTA V for $200!" rows="3"></textarea>
+          <div id="" class="form-text">Describe your item to your
+            potential buyers!</div>
+        </div>
 
-            </select>
-            <div id="" class="form-text">What category best fits your
-              item?</div>
-          </div>
-          <div class="mb-3">
-            <label class="form-label font-weight-bold">Quality of Item:</label>
-            <select class="form-select" aria-label="Default select example">
-              <option selected>Choose Item Condition</option>
-              <option value="1">Poor</option>
-              <option value="3">Average</option>
-              <option value="4">Good</option>
-              <option value="5">Excellent</option>
-            </select>
-            <div id="" class="form-text">How would you rate the quality
-              of your item?</div>
-          </div>
-          <div class="mb-3">
-            <label class="form-label font-weight-bold">Item Description:</label>
-            <textarea
-              class="form-control"
-              maxlength="250"
-              id=""
-              placeholder="Ex: Selling a brand new PS5, with 2 controllers and GTA V for $200!"
-              rows="3"
-            ></textarea>
-            <div id="" class="form-text">Describe your item to your
-              potential buyers!</div>
-          </div>
+        <p>{{errorText}}</p>
 
-          <div class="text-center">
-            <button
-              type="button"
-              class="btn btn-danger btn-rounded text-center my-3 font-weight-bold"
-            >POST LISTING</button>
-          </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-danger btn-rounded text-center my-3 font-weight-bold">POST
+            LISTING</button>
+        </div>
 
-        </form>
-      </div>
+      </form>
     </div>
-
   </div>
+
+</div>
 </div>
