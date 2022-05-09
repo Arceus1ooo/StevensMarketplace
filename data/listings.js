@@ -11,7 +11,6 @@ async function VerifyListingObject(name, category, postDate, askPrice, desc, con
     if (!askPrice) throw 'asking price must be supplied';
     if (!desc) throw 'description must be supplied';
     if (!cond) throw 'condition must be supplied';
-    if (!status) throw 'status must be supplied';
     if (!sellerID) throw 'seller ID must be supplied';
 
     name = validation.VerifyString(name, 'listing name');

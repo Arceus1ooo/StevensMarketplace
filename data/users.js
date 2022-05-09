@@ -1,5 +1,6 @@
 const mongoCollections = require('../config/mongoCollections');
 const usersCollection = mongoCollections.users;
+const listingsCollection = mongoCollections.listings;
 const validation = require('../validations');
 const bcrypt = require('bcryptjs');
 const { ObjectId } = require('mongodb');
@@ -94,6 +95,24 @@ module.exports = {
         const updatedInfo = await users.replaceOne({ _id: ObjectId(id) }, newUser);
         if (updatedInfo.modifiedCount === 0) throw 'Error: could not update user';
         return await this.getUserByID(id);
+    },
+
+    async addUserListing(userEmail, listingID) {
+        if (!userEmail) throw 'user email must be supplied';
+        if (!listingID) throw 'listing ID must be supplied';
+        userEmail = validation.VerifyEmail(userEmail);
+        if (!ObjectId.isValid(listingID)) throw 'invalid listing ID';
+
+        const user = await this.getUserByEmail(userEmail);
+        user._id = ObjectId(user._id);
+        const users = await usersCollection();
+        const listings = await listingsCollection();
+        const listing = await listings.findOne({ _id: ObjectId(listingID) });
+
+        user.userListings.push(listing);
+        const updatedInfo = await users.replaceOne({ email: userEmail }, user);
+        if (updatedInfo.modifiedCount === 0) throw 'could not add listing';
+        return await this.getUserByEmail(userEmail);
     },
 
     async deleteUserByEmail(email) {

@@ -33,6 +33,7 @@ app.set("view engine", "hbs");
 
 const data = require('./data');
 const usersData = data.users;
+const listingsData = data.listings;
 const validation = require('./validations');
 const conversationsData = data.conversations;
 
@@ -64,6 +65,35 @@ app.get("/listings/create", (req, res) => {
   res.render("createListings", {
     layout: "index",
   });
+});
+app.post("/listings/create", async (req, res) => {
+  const body = req.body;
+  body.sale_status = false;
+
+  const date = new Date();
+  let month = date.getMonth() + 1; //0 is january, 11 is december (need 1-12 instead)
+  month = month < 10 ? `0${month}` : month.toString();
+  let day = date.getDate();
+  day = day < 10 ? `0${day}` : day.toString();
+  console.log(month, day, date.getFullYear().toString());
+  body.postedDate = `${month}/${day}/${date.getFullYear().toString()}`;
+
+  const user = await usersData.getUserByEmail(req.session.email);
+
+  try {
+    body.postedDate = validation.VerifyDate(body.postedDate);
+  } catch (e) {
+    return res.status(500).render('createListings', { layout: 'index', body: body, errorText: e });
+  }
+
+  try {
+    let listing = await listingsData.createListing(body.name, body.category, body.postedDate, body.price,
+      body.description, body.condition, body.sale_status, user._id);
+    await usersData.addUserListing(req.session.email, listing._id);
+  } catch (e) {
+    return res.status(500).render('createListings', { layout: 'index', body: body, errorText: e });
+  }
+  return res.redirect('/profile');
 });
 
 //Create listings page route
