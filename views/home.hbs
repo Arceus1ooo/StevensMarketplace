@@ -4,27 +4,15 @@
       <h2 class="redtext">STEVENS MARKETPLACE</h2>
     </a>
     <div class="input-group my-2">
-      <input
-        type="search"
-        class="form-control"
-        placeholder="What are you looking for?"
-        aria-label="Search"
-      />
+      <input type="search" class="form-control" placeholder="What are you looking for?" aria-label="Search" />
       <div class="col-1">
         <button type="submit" class="btn">
           <i class="bi bi-search"></i>
         </button>
       </div>
     </div>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="">
@@ -58,25 +46,14 @@
 </nav>
 
 {{> info}}
-<div class="title text-center my-4">
-  <h2 class="redtext">Available Listings</h2>
-  <div class="">
-    <button
-      type="button"
-      class="btn btn-danger m-2 whitetext active-filter-btn"
-    >All</button>
-    <button type="button" class="btn m-2 redtext">New Listings</button>
-    <button type="button" class="btn m-2 redtext">Popular</button>
-    <button type="button" class="btn m-2 redtext">User Favorites</button>
-  </div>
-</div>
+<br>
 
 <section class="padding-y">
   <div class="parent-container d-flex">
     {{> filters}}
     <div class="container">
       <header class="section-heading">
-        <h3 class="section-title redtext my-3">New Products</h3>
+        <h3 class="section-title redtext my-3">Products</h3>
       </header>
       <div class="row gy-3 align-items-center">
         <div class="col-lg-4 col-md-6 col-sm-6">
