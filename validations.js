@@ -8,7 +8,6 @@ const conditions = ['New', 'Good', 'Fair', 'Poor'];
 
 module.exports = {
     VerifyBool(bool) {
-        if (!bool) throw 'a value must be supplied';
         if (typeof bool !== 'boolean') throw 'value must be true or false';
     },
 
