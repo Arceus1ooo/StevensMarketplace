@@ -82,16 +82,20 @@ app.get("/listings/saved", (req, res) => {
 
 //Create listings page route
 app.get("/profile/create", (req, res) => {
-  res.render("createProfile", {
-    layout: "index",
-  });
+  res.render("createProfile", { layout: "index" });
 });
 
-
+app.post('/profile/create', async (req, res) => {
+  const body = req.body;
+  const user = await usersData.getUserByEmail(req.session.email);
+  const updatedUser = await usersData.updateUserByID(user._id, body.first, body.last);
+  res.redirect('/profile');
+});
 
 //Home page route
-app.get("/profile", (req, res) => {
-  res.render("profile", { layout: "index" });
+app.get("/profile", async (req, res) => {
+  const user = await usersData.getUserByEmail(req.session.email);
+  res.render("profile", { layout: "index", user: user });
 });
 
 //Home page route

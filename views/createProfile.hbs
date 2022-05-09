@@ -4,15 +4,8 @@
       <h2 class="redtext">STEVENS MARKETPLACE</h2>
     </a>
 
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="">
@@ -44,33 +37,34 @@
     </div>
   </div>
 </nav>
-    <div class="test2">
-        <div class="container d-flex justify-content-center ">
-            <div class="my-5  col-5 card-body chatbg form-container">
-                <h3 class="font-weight-bold redtext text-center ">Create your profile!</h3>
-                <form>
-                    <div class="mb-3">
-                        <div class="mb-3">
-                            <label class="form-label font-weight-bold">About You:</label>
-                            <textarea class="form-control" maxlength = "200" id="exampleFormControlTextarea1"
-                                placeholder="Ex: I love making people happy and studying after school!" rows="4"></textarea>
-                            <div id="" class="form-text">Describe yourself!</div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label font-weight-bold">Interests:</label>
-                            <textarea class="form-control" maxlength = "200" id="exampleFormControlTextarea1"
-                                placeholder="Ex: I am interested in Videogams and cooking!" rows="4"></textarea>
-                            <div id="" class="form-text">Tell everyone what your interests are!</div>
-                        </div>
+<div class="test2">
+  <div class="container d-flex justify-content-center ">
+    <div class="my-5  col-5 card-body chatbg form-container">
+      <h3 class="font-weight-bold redtext text-center ">Create your profile!</h3>
+      <form method="POST" action="/profile/create">
+        <div class="mb-3">
+          <div class="mb-3">
+            <label class="form-label font-weight-bold">First Name:</label>
+            <textarea name="first" class="form-control" maxlength="200" id="exampleFormControlTextarea1"
+              placeholder="Ex: I love making people happy and studying after school!" rows="4"></textarea>
+            <div id="" class="form-text">Describe yourself!</div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label font-weight-bold">Last Name:</label>
+            <textarea name="last" class="form-control" maxlength="200" id="exampleFormControlTextarea1"
+              placeholder="Ex: I am interested in Videogams and cooking!" rows="4"></textarea>
+            <div id="" class="form-text">Tell everyone what your interests are!</div>
+          </div>
 
-                        <div class="text-center my-5">
-                            <button type="button" class="btn btn-lg btn-danger text-center my-3 font-weight-bold">CREATE ACCOUNT</button>
-                        </div>
-                </form>
-            </div>
-            
-        </div>
-                    
-        
+          <div class="text-center my-5">
+            <button type="submit" class="btn btn-lg btn-danger text-center my-3 font-weight-bold">CREATE
+              ACCOUNT</button>
+          </div>
+      </form>
     </div>
-    </div>
+
+  </div>
+
+
+</div>
+</div>
