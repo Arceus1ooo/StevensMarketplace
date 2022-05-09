@@ -24,6 +24,7 @@
     "express-session": "^1.17.2",
     "mdb-ui-kit": "^4.0.0",
     "mdbootstrap": "^4.20.0",
-    "mongodb": "^4.5.0"
+    "mongodb": "^4.5.0",
+    "xss": "^1.0.11"
   }
 }

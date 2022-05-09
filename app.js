@@ -5,6 +5,9 @@ const session = require("express-session");
 const app = express();
 const port = process.env.PORT || 3000;
 const logger = require("./middleware/logger");
+const bcrypt = require('bcryptjs');
+const xss = require('xss');
+const userData = require("./data/users");
 
 //Loads the handlebars module
 const { engine, ExpressHandlebars } = require("express-handlebars");
@@ -131,28 +134,46 @@ app.get('/personalChat', async (req, res) => {
 
 //Process login route
 app.post("/login", async (req, res) => {
-  const body = req.body;
-  if (!body.email) {
+  let email = xss(req.body.email);
+  let password = xss(req.body.password);
+  if (!email) {
     return res.status(400).render('login', { layout: 'index', errorText: 'email must be supplied' });
   }
-  if (!body.password) {
-    return res.status(400).render('login', { layout: 'index', errorText: 'email must be supplied' });
+  if (!password) {
+    return res.status(400).render('login', { layout: 'index', errorText: 'password must be supplied' });
   }
 
   try {
-    body.email = validation.VerifyEmail(body.email);
-    body.password = validation.VerifyPassword(body.password);
+    email = validation.VerifyEmail(email);
+    password = validation.VerifyPassword(password);
   } catch (e) {
     return res.status(400).render('login', { layout: 'index', errorText: e });
   }
 
   try {
-    const user = await usersData.checkUser(body.email, body.password);
+    const user = await usersData.checkUser(email, password);
     req.session.isAuthenticated = true;
-    req.session.email = body.email;
+    req.session.email = email;
     res.redirect("/home");
   } catch (e) {
     return res.status(500).render('login', { layout: 'index', errorText: e });
+  }
+
+  let hashedPassword;
+  try {
+    ({hashedPassword} = await userData.getUserByEmail(email));
+    if (!hashedPassword) throw `No password found for user with email: ${email}.`;
+  } catch (e) {
+    return res.status(400).render('login', { layout: 'index', errorText: e });
+  }
+
+  const match = await bcrypt.compare(password, hashedPassword);
+  if (match) {
+    req.session.user = {email};
+    res.status(200).json({message: 'success'});
+  } else {
+    res.status(400).json({error: 'Invalid username or password.'});
+		return;
   }
 });
 
