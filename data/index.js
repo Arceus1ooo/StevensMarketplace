@@ -17,8 +17,7 @@ async function test() {
         console.log(e);
     }
     let user1 = await usersData.getUserByEmail('test@test.com');
-    let user2 = await usersData.getUserByEmail('blah@blah.com');
-    let user3 = await usersData.getUserByEmail('blah2@blah.com');
+    let user2 = await usersData.getUserByEmail('blah2@blah.com');
     //await usersData.deleteUserByEmail('teSt@teSt.Com');
     let listing = await listingsData.createListing('test', 'furniture', '3/3/2003', '23.21', 'test', 'good', true, user1._id);
     //await listingsData.deleteListingByID(listing._id);
@@ -33,16 +32,16 @@ async function test() {
     let listing2 = await listingsData.createListing('test', 'textbook', '3/3/2003', '23.21', 'test', 'good', true, user1._id);
     //await listingsData.deleteListingByID(listing2._id);
     let a = await listingsData.getListingsByCategory('furniture');
-    //console.log(a);
+    console.log(a);
 
     try {
-        let conversation = await conversationsData.createConversation(user3._id, user1._id);
+        let conversation = await conversationsData.createConversation(user2._id, user1._id);
     } catch (e) {
         console.log(e);
     }
     let message = await conversationsData.createMessage(user1._id, 'hello');
-    //console.log(message);
-    await conversationsData.addMessage(message, user1._id, user2._id);
+    console.log(message);
+    await conversationsData.addMessage(message, user2._id, user1._id);
     console.log(await conversationsData.getAllConversations(user1._id));
     console.log('done');
 }
