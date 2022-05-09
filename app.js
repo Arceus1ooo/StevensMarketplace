@@ -209,25 +209,26 @@ app.post("/login", async (req, res) => {
 
 //Process signup route
 app.post("/signup", async (req, res) => {
-  const body = req.body;
-  if (!body.email) {
+  let email = xss(req.body.email);
+  let password = xss(req.body.password);
+  if (!email) {
     return res.status(400).render('signup', { layout: 'index', errorText: 'email must be supplied' });
   }
-  if (!body.password) {
-    return res.status(400).render('signup', { layout: 'index', errorText: 'email must be supplied' });
+  if (!password) {
+    return res.status(400).render('signup', { layout: 'index', errorText: 'password must be supplied' });
   }
 
   try {
-    body.email = validation.VerifyEmail(body.email);
-    body.password = validation.VerifyPassword(body.password);
+    email = validation.VerifyEmail(email);
+    password = validation.VerifyPassword(password);
   } catch (e) {
     return res.status(400).render('signup', { layout: 'index', errorText: e });
   }
 
   try {
-    const user = await usersData.createUser(body.email, body.password);
+    const user = await usersData.createUser(email, password);
     req.session.isAuthenticated = true;
-    req.session.email = body.email;
+    req.session.email = email;
     res.redirect("/home");
   } catch (e) {
     return res.status(500).render('signup', { layout: 'index', errorText: e });
