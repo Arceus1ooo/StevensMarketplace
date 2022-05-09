@@ -44,20 +44,24 @@
         <h3 class="font-weight-bold mb-3 whitetext text-center text-lg-start">Contact your peers</h3>
         <div class="card">
           <div class="card-body">
-            <ul class="list-unstyled">
-              {{#each names}}
-              <li class="">
-                <button type="button" class="btn d-flex justify-content-between">
-                  <div class="d-flex flex-row">
-                    <img src="images\Logo.jpeg" alt="avatar" class="roundsquare me-4" width="80" />
-                    <div class="pt-2">
-                      <p class="fw-bold redtext my-2">{{this}}</p>
+            <form method="POST" action="/chat">
+              <ul class="list-unstyled">
+                {{#each names}}
+                <li class="">
+                  <input type="hidden" name="id" value="{{this.id}}" />
+                  <input type="hidden" name="type" value="{{this.type}}" />
+                  <button type="submit" class="btn d-flex justify-content-between">
+                    <div class="d-flex flex-row">
+                      <img src="images\Logo.jpeg" alt="avatar" class="roundsquare me-4" width="80" />
+                      <div class="pt-2">
+                        <p class="fw-bold redtext my-2">{{this.name}}</p>
+                      </div>
                     </div>
-                  </div>
-                </button>
-              </li>
-              {{/each}}
-            </ul>
+                  </button>
+                </li>
+                {{/each}}
+              </ul>
+            </form>
 
           </div>
         </div>
