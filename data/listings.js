@@ -67,6 +67,16 @@ module.exports = {
         return result;
     },
 
+    async getListingsByNameOrDesc(searchTerm) {
+        if (!searchTerm) throw 'search term must be supplied';
+        searchTerm = validation.VerifyString(searchTerm, 'search term');
+        const listings = await listingsCollection();
+        const result = await listings.find(
+            { $or: [{ $where: `JSON.stringify(this).indexOf(${searchTerm}) != -1` }] }
+        ).toArray();
+        return result;
+    },
+
     async updateListing(id, name, category, postDate, askPrice, desc, cond, status, sellerID) {
         if (!id) throw 'ID must be supplied';
         if (!ObjectId.isValid(id)) throw 'invalid ID';
