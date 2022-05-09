@@ -74,6 +74,7 @@ module.exports = {
         const result = await listings.find(
             { $or: [{ $where: `JSON.stringify(this).indexOf(${searchTerm}) != -1` }] }
         ).toArray();
+        return result;
     },
 
     async updateListing(id, name, category, postDate, askPrice, desc, cond, status, sellerID) {
